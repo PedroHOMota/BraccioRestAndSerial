@@ -20,10 +20,11 @@ public class ComPortListener implements SerialPortDataListener {
         System.out.print(s.replace(">",""));
         if(s.contains(">")){
             States.ready = true;
-            System.out.println("\nReceived ready char");
+            System.out.println("\nReceived ready char "+States.ready);
         }
         if(s.contains("@")){
             States.finished = true;
+            System.out.println("\nReceived done char "+States.finished);
         }
     }
 }

@@ -14,6 +14,7 @@ public class ConnectToArduino {
     public ConnectToArduino(String port){
         this.port = port;
 
+        System.out.println("\n\n\n\nStarting listener\n\n\n\n");
         SerialPort comm5 = SerialPort.getCommPort("COM5");
         comm5.openPort();
         inputStream = comm5.getInputStream();
@@ -22,6 +23,8 @@ public class ConnectToArduino {
         ComPortListener listener = new ComPortListener();
         comm5.addDataListener(listener);
     }
+
+
 
     public InputStream getInputStream(){
         return inputStream;
@@ -42,11 +45,14 @@ public class ConnectToArduino {
                 i++;
             }
             if (i > 6 || States.finished) {
+                Thread.sleep(1000);
                 States.finished = false;
+                States.ready = false;
+                System.out.println("clearing "+States.finished+" readr: "+States.ready);
                 return;
             }
 
-            Thread.sleep(1000);
+            Thread.sleep(100);
         }
     }
 

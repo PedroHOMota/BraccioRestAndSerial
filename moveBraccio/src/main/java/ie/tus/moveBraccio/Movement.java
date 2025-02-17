@@ -9,6 +9,15 @@ M4=wrist vertical degrees. Allowed values from 0 to 180 degrees
 M5=wrist rotation degrees. Allowed values from 0 to 180 degrees
 M6=gripper degrees. Allowed values from 10 to 73 degrees. 10: the toungue is open, 73: the gripper is closed.
 */
+
+//Initialization functions and set up the initial position for Braccio
+//All the servo motors will be positioned in the "safety" position:
+//Base (M1):90 degrees
+//Shoulder (M2): 45 degrees
+//Elbow (M3): 180 degrees
+//Wrist vertical (M4): 180 degrees
+//Wrist rotation (M5): 90 degrees
+//gripper (M6): 10 degrees
 public class Movement {
 
     private int delay=0;
