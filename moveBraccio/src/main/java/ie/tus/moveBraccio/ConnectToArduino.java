@@ -44,7 +44,7 @@ public class ConnectToArduino {
                 outputStream.write(data[i]);
                 i++;
             }
-            if (i > 6 || States.finished) {
+            if (i > 6) {
                 Thread.sleep(1000);
                 States.finished = false;
                 States.ready = false;
