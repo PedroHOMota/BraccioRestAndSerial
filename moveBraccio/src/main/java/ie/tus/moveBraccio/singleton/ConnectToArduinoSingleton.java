@@ -1,6 +1,8 @@
-package ie.tus.moveBraccio;
+package ie.tus.moveBraccio.singleton;
 
-public class ConnectToArduinoSingletonFacotry {
+import ie.tus.moveBraccio.ConnectToArduino;
+
+public class ConnectToArduinoSingleton {
 
     private static ConnectToArduino instance = null;
 

@@ -4,6 +4,9 @@ package ie.tus.moveBraccio;
 import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
+import com.google.common.eventbus.EventBus;
+import ie.tus.moveBraccio.event.ArduinoReadyEvent;
+import ie.tus.moveBraccio.singleton.EventBusSingleton;
 
 public class ComPortListener implements SerialPortDataListener {
 
@@ -21,10 +24,7 @@ public class ComPortListener implements SerialPortDataListener {
         if(s.contains(">")){
             States.ready = true;
             System.out.println("\nReceived ready char "+States.ready);
-        }
-        if(s.contains("@")){
-            States.finished = true;
-            System.out.println("\nReceived done char "+States.finished);
+            EventBusSingleton.getEventBus().post(new ArduinoReadyEvent());
         }
     }
 }
