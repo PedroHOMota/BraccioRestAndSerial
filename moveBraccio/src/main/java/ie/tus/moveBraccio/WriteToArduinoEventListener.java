@@ -4,7 +4,6 @@ import com.google.common.eventbus.Subscribe;
 import ie.tus.moveBraccio.event.ArduinoReadyEvent;
 import ie.tus.moveBraccio.event.QueueDataToSendEvent;
 import ie.tus.moveBraccio.singleton.ConnectToArduinoSingleton;
-import ie.tus.moveBraccio.singleton.EventBusSingleton;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -14,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 public class WriteToArduinoEventListener {
 
-    BlockingQueue<Movement> dataToProcess = new LinkedBlockingQueue<>();
+    BlockingQueue<RobotMotors> dataToProcess = new LinkedBlockingQueue<>();
     Queue<Integer> dataProcessing = new LinkedList<>();
     @Subscribe
     public void writeToArduino(ArduinoReadyEvent e){
@@ -51,7 +50,7 @@ public class WriteToArduinoEventListener {
 
 
     private void moveToDataProcessingQueue(){
-        Movement move = dataToProcess.poll();
+        RobotMotors move = dataToProcess.poll();
         if(move == null){
             System.out.println("No queued data");
             return;

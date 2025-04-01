@@ -8,10 +8,15 @@ import com.google.common.eventbus.EventBus;
 import ie.tus.moveBraccio.event.ArduinoReadyEvent;
 import ie.tus.moveBraccio.singleton.EventBusSingleton;
 
+import java.util.concurrent.TimeUnit;
+
 public class ComPortListener implements SerialPortDataListener {
 
     @Override
     public int getListeningEvents() { return SerialPort.LISTENING_EVENT_DATA_AVAILABLE; }
+
+    private String temp="";
+
 
     @Override
     public void serialEvent(SerialPortEvent event)
@@ -19,12 +24,21 @@ public class ComPortListener implements SerialPortDataListener {
         byte[] buffer = new byte[event.getSerialPort().bytesAvailable()];
         event.getSerialPort().readBytes(buffer, buffer.length);
         String s = new String(buffer);
-
-        System.out.print(s.replace(">",""));
+        temp += s;
+        System.out.print(s);
         if(s.contains(">")){
             States.ready = true;
             System.out.println("\nReceived ready char "+States.ready);
             EventBusSingleton.getEventBus().post(new ArduinoReadyEvent());
+        } else if(s.contains("/")) {
+            try {
+                States.dataFromArduino.offer(temp.substring(temp.lastIndexOf("@") + 1, temp.lastIndexOf("/") - 1),
+                        1, TimeUnit.SECONDS);
+            } catch (Exception e){
+                e.printStackTrace();
+            } finally {
+                temp = "";
+            }
         }
     }
 }

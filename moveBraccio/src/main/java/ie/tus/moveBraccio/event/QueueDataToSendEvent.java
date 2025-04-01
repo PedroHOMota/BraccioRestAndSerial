@@ -1,16 +1,16 @@
 package ie.tus.moveBraccio.event;
 
-import ie.tus.moveBraccio.Movement;
+import ie.tus.moveBraccio.RobotMotors;
 
 public class QueueDataToSendEvent {
-    private final Movement movement;
+    private final RobotMotors robotMotors;
 
-    public QueueDataToSendEvent(Movement move) {
-        this.movement = move;
+    public QueueDataToSendEvent(RobotMotors move) {
+        this.robotMotors = move;
     }
 
-    public Movement getMovement(){
-        return movement;
+    public RobotMotors getMovement(){
+        return robotMotors;
     }
 
 }

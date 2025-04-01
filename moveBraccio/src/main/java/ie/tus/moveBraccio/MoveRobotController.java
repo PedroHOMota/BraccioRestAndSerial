@@ -1,5 +1,6 @@
 package ie.tus.moveBraccio;
 
+import ie.tus.moveBraccio.dto.RobotMotorsDto;
 import ie.tus.moveBraccio.event.ArduinoReadyEvent;
 import ie.tus.moveBraccio.singleton.EventBusSingleton;
 import org.springframework.http.ResponseEntity;
@@ -13,28 +14,25 @@ public class MoveRobotController {
     MoveRobotService service = new MoveRobotService();
 
     @PostMapping(value = "/move")
-    public ResponseEntity moveBraccio(@RequestBody Movement move){
+    public ResponseEntity<RobotMotorsDto> moveBraccio(@RequestBody RobotMotors move){
 
         try {
+            final RobotMotors initial = service.readPosition();
             service.write(move);
-            return ResponseEntity.ok().build();
+            final RobotMotors end = service.readPosition();
+            
+            final RobotMotorsDto dto = new RobotMotorsDto(initial,end);
+            return ResponseEntity.ok(dto);
         } catch (Exception e) {
             return ResponseEntity.internalServerError().build();
         }
     }
 
-    @GetMapping(value = "/tst")
-    public ResponseEntity root(Movement move){
-        service.sendEvent();
-            return ResponseEntity.ok().body("root");
+    @GetMapping(value = "/move")
+    public ResponseEntity<RobotMotors> readRobotPosition() throws Exception{
+        RobotMotors robotMotors = service.readPosition();
 
-    }
-
-    @GetMapping(value = "/t")
-    public ResponseEntity root3(Movement move){
-        EventBusSingleton.getEventBus().register(new ArduinoReadyEvent());
-
-        return ResponseEntity.ok().body("2");
+        return ResponseEntity.ok().body(robotMotors);
 
     }
 

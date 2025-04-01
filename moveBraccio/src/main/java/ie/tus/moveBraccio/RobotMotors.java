@@ -14,11 +14,11 @@ M6=gripper degrees. Allowed values from 10 to 73 degrees. 10: the toungue is ope
 //All the servo motors will be positioned in the "safety" position:
 //Base (M1):90 degrees
 //Shoulder (M2): 45 degrees
-//Elbow (M3): 180 degrees
+//Elbow (M3): 180 degrees8 8ik 
 //Wrist vertical (M4): 180 degrees
 //Wrist rotation (M5): 90 degrees
 //gripper (M6): 10 degrees
-public class Movement {
+public class RobotMotors {
 
     private int delay=0;
     private int base=0;
@@ -83,5 +83,18 @@ public class Movement {
 
     public void setDelay(int delay) {
         this.delay = delay;
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder builder = new StringBuilder();
+        builder.append("Base: ").append(base)
+                .append("\nShoulder: ").append(shoulder)
+                .append("\nElbow: ").append(elbow)
+                .append("\nWrist_Vertical: ").append(wristVertical)
+                .append("\nWrist_Rotation: ").append(wristRotation)
+                .append("\nGripper: ").append(gripper);
+
+        return builder.toString();
     }
 }
