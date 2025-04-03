@@ -3,6 +3,7 @@ package ie.tus.moveBraccio;
 import com.google.common.eventbus.Subscribe;
 import ie.tus.moveBraccio.event.ArduinoReadyEvent;
 import ie.tus.moveBraccio.event.QueueDataToSendEvent;
+import ie.tus.moveBraccio.event.ReadArduinoPositionEvent;
 import ie.tus.moveBraccio.singleton.ConnectToArduinoSingleton;
 
 import java.util.LinkedList;

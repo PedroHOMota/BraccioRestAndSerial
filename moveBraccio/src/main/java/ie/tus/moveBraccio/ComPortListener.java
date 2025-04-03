@@ -26,16 +26,20 @@ public class ComPortListener implements SerialPortDataListener {
         String s = new String(buffer);
         temp += s;
         System.out.print(s);
+
         if(s.contains(">")){
             States.ready = true;
             System.out.println("\nReceived ready char "+States.ready);
             EventBusSingleton.getEventBus().post(new ArduinoReadyEvent());
-        } else if(s.contains("/")) {
+        }
+        if(s.contains("/")) {
+            System.out.println("\nGOT HERE: "+temp.substring(temp.lastIndexOf("@") + 1, temp.lastIndexOf("/") - 1));
             try {
-                States.dataFromArduino.offer(temp.substring(temp.lastIndexOf("@") + 1, temp.lastIndexOf("/") - 1),
+                boolean offer = States.dataFromArduino.offer(temp.substring(temp.lastIndexOf("@") + 1, temp.lastIndexOf("/") - 1),
                         1, TimeUnit.SECONDS);
+                System.out.println("\nOFFER: "+offer);
             } catch (Exception e){
-                e.printStackTrace();
+                System.out.println("\n\n FAILED");
             } finally {
                 temp = "";
             }

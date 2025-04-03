@@ -19,8 +19,9 @@ public class MoveRobotController {
         try {
             final RobotMotors initial = service.readPosition();
             service.write(move);
+            Thread.sleep(1500);
             final RobotMotors end = service.readPosition();
-            
+
             final RobotMotorsDto dto = new RobotMotorsDto(initial,end);
             return ResponseEntity.ok(dto);
         } catch (Exception e) {
@@ -34,6 +35,23 @@ public class MoveRobotController {
 
         return ResponseEntity.ok().body(robotMotors);
 
+    }
+
+    @GetMapping(value = "/tst")
+    public ResponseEntity<RobotMotorsDto> tst(){
+
+        try {
+            final RobotMotors initial = service.readPosition();
+
+
+            final RobotMotors end = service.readPosition();
+
+            final RobotMotorsDto dto = new RobotMotorsDto(initial,end);
+            return ResponseEntity.ok(dto);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
 }

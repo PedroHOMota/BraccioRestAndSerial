@@ -7,6 +7,7 @@ public class ConnectToArduinoSingleton {
     private static ConnectToArduino instance = null;
 
     public static ConnectToArduino getInstance() {
+
         if(instance == null){
             instance = new ConnectToArduino("COM5");
         }

@@ -19,9 +19,7 @@ public class ReadArduinoPositionEventListener {
 
 
         try {
-            Integer tst = 181;
             char c = 'µ';
-            System.out.println("Got here; writting");
             ConnectToArduinoSingleton.getInstance().getOutputStream().write(c);
         } catch (Exception ex) {
             System.out.println(ex);
